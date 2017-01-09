@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>ODU Student Demographics Project - Prototype</title>
+<style>
+    #topcorner{
+    position: absolute;
+    right:380px;}
+        html {
+  height: 100%;
+}
+         #wrapper {
+  border: 1px #e4e4e4 solid;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #ccc;
+  background-color: #fff;
+  width:1300px;
+}
+
+
+body { 
+   background:url(bg.jpg),linear-gradient(steelblue,white);
+     background-size: 6000px 100px,6000px 500px;
+    background-repeat: no-repeat,no-repeat;
+    
+    padding: 15px;
+  color: #666;
+  font: normal 10px sans-serif; 
+  margin: 2em; 
+}
+
+#tipchart1 {
+float: left
+}
+.country:hover{
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+.selected {
+    fill: red;
+}
+.country {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: .5px;
+  stroke-linejoin: round;
+}
+
+.hidden { 
+  display: none; 
+}
+ 
+div.tooltip {
+  color: #222; 
+  background: #fff; 
+  padding: .5em; 
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px; 
+  box-shadow: 0px 0px 2px 0px #a6a6a6; 
+  opacity: 0.9; 
+  position: absolute;
+}
+
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 300px;
+  height: 10px;
+  padding: 8px 12px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-dropdown-menu {
+  width: 300px;
+  margin-top: 12px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+
+
+
+.d3-slider {
+    position: relative;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 1.1em;
+    border: 1px solid #aaaaaa;
+    z-index: 2;
+}
+
+.d3-slider-horizontal {
+    height: .8em;
+}  
+
+.d3-slider-vertical {
+    width: .8em;
+    height: 100px;
+}      
+
+.d3-slider-handle {
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    background: #eee;
+    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+    z-index: 3;
+}
+
+.d3-slider-handle:hover {
+    border: 1px solid #999999;
+}
+
+.d3-slider-horizontal .d3-slider-handle {
+    top: -.3em;
+    margin-left: -.6em;
+}
+
+.d3-slider-axis {
+    position: relative;
+    z-index: 1;    
+}
+
+.d3-slider-axis-bottom {
+    top: .8em;
+}
+
+.d3-slider-axis-right {
+    left: .8em;
+}
+
+.d3-slider-axis path {
+    stroke-width: 0;
+    fill: none;
+}
+
+.d3-slider-axis line {
+    fill: none;
+    stroke: #aaa;
+    shape-rendering: crispEdges;
+}
+
+.d3-slider-axis text {
+    font-size: 11px;
+}
+
+.d3-slider-vertical .d3-slider-handle {
+    left: -.25em;
+    margin-left: 0;
+    margin-bottom: -.6em;      
+}
+
+ 
+
+	.wrapper div {
+		margin: 35px 0;
+	}
+
+    .wrapper {
+      width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+	
+	
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+.line {
+  fill: none;
+  stroke: orange;
+  stroke-width: 1.5px;
+}
+
+.line1 {
+  fill: none;
+  stroke: #4daf4a;
+  stroke-width: 1.5px;
+}
+
+.line2 {
+  fill: none;
+  stroke: #e41a1c;
+  stroke-width: 1.5px;
+}
+
+    #worldmap {
+  border: 1px #e4e4e4 solid;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #ccc;
+  background-color: #fff;
+}
+
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+
+</style>
+<body >
+ <div id="wrapper" class="container">
+<div class="row">
+        <div class="col-md-4">
+<img class="img-responsive"  src="odu.jpg" alt="ODU"style="width:220px;height:100px;">
+        </div>
+       
+      <h1 style ="color:steelblue">ODU STUDENT DEMOGRAPHICS </h1>
+   
+        </div>
+  
+ <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+
+        <span class="sr-only">Toggle navigation</span>00
+
+        <span class="icon-bar"></span>
+
+        <span class="icon-bar"></span>
+
+        <span class="icon-bar"></span>
+
+      </button>
+
+    </div>
+
+  <div class="collapse navbar-collapse" id="navbar-collapse-main">
+
+      <ul class="nav navbar-nav navbar-center">
+
+        <li><a href="#WorldMap"><h3 font-family="sans-serif">World Map</h3></a></li>
+
+        <li><a href="#HeadCount"><h3>Head Count</h3></a></li>
+
+        <li><a href="#GenderChart"><h3>Gender Ratio</h3></a></li>
+
+      
+      </ul>
+
+      </nav></div>
+     <br>
+ 
+<div id="WorldMap"class="divider">
+<span style="font-size:15px"><b>Preview Type : </b><input type="radio" id="MapPre" name = 'pre' checked> Chart Preview</input> <input type="radio" id="TextPre" name = 'pre'>   Text Preview</input></span><br>
+<br><p style="font-size:15px"><b>Select Major</b></p>
+<input class="typeahead form-control" type="text" placeholder="Computer Science" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+<br></br>
+<span style="font-size:15px" align="center"><b>Select level option to Color by HeadCount for Selected Major: </b><input type="radio" id="GradCount" onclick = 'drawMap.colorMap()' name = 'level' checked> Graduate</input> <input type="radio" id="UnderGradCount" name = 'level' onclick = 'drawMap.colorMapUnderGrad()'> Under Graduate</input> <input type="radio" id="AllCount" name = 'level'onclick = 'drawMap.colorMapAll()'> Student HeadCount(All Majors)</input></span>
+<br></br>
+<text><b>Selected Country : </b></text><b><text id="countryy">India</text></b>
+<div id="map" align = "center"></div>
+
+<div id="CMCountG" style = "display : none">0</div>
+<div id="CMCountU" style = "display : none">0</div>
+
+
+
+
+
+<div id="tagsname" style = "display : none">Computer Science</div>
+<div class="wrapper">
+    <div id="slider6"></div>
+	<div id="year" style = "display : none">2015</div>
+  </div>
+  <br>
+ </div>
+ <div id="HeadCount"class="divider">
+  
+  <div id="LineChart" style="float: left"></div>
+  
+  <div id="LineChart2"></div>
+  <br/>
+  <div id="HorBar" style="float: left"></div>
+  
+  <div id="HorBarUnderGrad"></div>
+  
+  
+   <br/>
+  <div id="GenderChart" style="float: left"></div>
+  
+  <div id="GenderChartU"></div></div>
+  
+  </div>
+  
+  
+
+
+<!--
+<select id="ddlViewBy" onchange="favMajor()" style="position: relative; top: -1px; left: 600px;">
+  <option value="1">cs</option>
+  <option value="2" selected="selected">ec</option>
+</select> -->
+<script src="js/d3.v3.min.js"></script>
+<script src="js/queue.v1.js"></script>
+<script src="js/topojson.js"></script>
+<script src="js/d3.slider.js"></script>
+<link href="nv.d3.css" rel="stylesheet" type="text/css">
+    <script src="nv.d3.js"></script>
+
+
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.1/typeahead.bundle.min.js"></script>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      
+  
+
+<script>
+	var prev;
+	var minn = 2006;
+	var maxx = 2015;
+    var axis = d3.svg.axis().orient("top").ticks(11);
+    
+
+  d3.select('#slider6').call(d3.slider().axis(true).value(maxx).min(minn).max(maxx).step(1).on("slide", function(evt, value) {
+  d3.select('#year').text(value);
+  if(document.getElementById('GradCount').checked == true)
+  drawMap.colorMap();
+  else if(document.getElementById('UnderGradCount').checked == true)
+  drawMap.colorMapUnderGrad();
+  else if(document.getElementById('AllCount').checked == true)
+  drawMap.colorMapAll()
+  
+  diffMajor();
+  diffMajor2();
+  
+}));
+
+
+drawMap();
+favMajor();
+diffMajor();
+diffMajor2();
+gender();
+genderU();
+
+ var numbers = new Bloodhound({
+      datumTokenizer: function(d) { 
+          return Bloodhound.tokenizers.whitespace(d.num); 
+      },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: [
+{ num: 'Accounting' },
+{ num: 'Acting' },
+{ num: 'Art Education' },
+{ num: 'Art History' },
+{ num: 'Art Studio' },
+{ num: 'Arts/Letters Intended' },
+{ num: 'Asian Studies' },
+{ num: 'Biochemistry' },
+{ num: 'Biology' },
+{ num: 'Business Intended' },
+{ num: 'Chemistry' },
+{ num: 'Civil Engineering' },
+{ num: 'Civil Engineering Technol' },
+{ num: 'Civil Engineering/ME' },
+{ num: 'Civil Engineering/MS' },
+{ num: 'Communication' },
+{ num: 'Computer Engineering' },
+{ num: 'Computer Engineering/ME' },
+{ num: 'Computer Engineering/MS' },
+{ num: 'Computer Science' },
+{ num: 'Criminal Justice' },
+{ num: 'Decision Sciences' },
+{ num: 'Dental Hygiene' },
+{ num: 'Dental Hygiene BSDH/MS' },
+{ num: 'E-Commerce' },
+{ num: 'Economics' },
+{ num: 'Education Intended' },
+{ num: 'Electrical Engin Technol' },
+{ num: 'Electrical Engineering' },
+{ num: 'Electrical Engineering/ME' },
+{ num: 'Electrical Engineering/MS' },
+{ num: 'Engineering General' },
+{ num: 'Engineering Technology General' },
+{ num: 'Engineering Technology/ME' },
+{ num: 'Engineering Technology/MS' },
+{ num: 'English' },
+{ num: 'Environmental Engineering' },
+{ num: 'Environmental Health' },
+{ num: 'Finance' },
+{ num: 'Fine Arts' },
+{ num: 'Foreign Languages' },
+{ num: 'Geography' },
+{ num: 'Health Sciences' },
+{ num: 'Health Sciences BSHS/MS' },
+{ num: 'Health Sciences Intended' },
+{ num: 'History' },
+{ num: 'Human Services' },
+{ num: 'Human Services Counseling' },
+{ num: 'Industrial Education' },
+{ num: 'Information Systems' },
+{ num: 'Interdisciplinary Studies' },
+{ num: 'International Business' },
+{ num: 'International Studies' },
+{ num: 'Management' },
+{ num: 'Maritime and Supply Chain Mgmt' },
+{ num: 'Marketing' },
+{ num: 'Mathematics' },
+{ num: 'Mechanical Engin Technol' },
+{ num: 'Mechanical Engineering' },
+{ num: 'Mechanical Engineering/ME' },
+{ num: 'Mechanical Engineering/MS' },
+{ num: 'Medical Technology' },
+{ num: 'Music' },
+{ num: 'Music Composition' },
+{ num: 'Music Education' },
+{ num: 'Music Performance' },
+{ num: 'Nuclear Medicine Technol' },
+{ num: 'Nursing' },
+{ num: 'Nursing RN/BSN/MSN' },
+{ num: 'Occupational/Tech Studies' },
+{ num: 'Ocean and Earth Science' },
+{ num: 'Philosophy' },
+{ num: 'Physical Education' },
+{ num: 'Physical Therapy' },
+{ num: 'Physics' },
+{ num: 'Political Science' },
+{ num: 'Psychology' },
+{ num: 'Recreation/Tourism Studies' },
+{ num: 'Sciences Intended' },
+{ num: 'Sociology' },
+{ num: 'Speech Pathology/Audiology' },
+{ num: 'Theatre and Dance' },
+{ num: 'Undecided' },
+{ num: 'Womens Studies' },
+{ num: 'Aerospace Engineering' },
+{ num: 'Applied Linguistics' },
+{ num: 'Applied Sociology' },
+{ num: 'Biomedical Sciences' },
+{ num: 'Business Administration' },
+{ num: 'Clinical Psychology' },
+{ num: 'Community College Leadership' },
+{ num: 'Community Health' },
+{ num: 'Computational Applied Math' },
+{ num: 'Counseling' },
+{ num: 'Creative Writing' },
+{ num: 'Curriculum and Instruction' },
+{ num: 'Early Childhood' },
+{ num: 'Early Childhood Education' },
+{ num: 'Ecological Sciences' },
+{ num: 'Education Leadership' },
+{ num: 'Educational Administration' },
+{ num: 'Educational Leadership' },
+{ num: 'Electrical/Computer Engineerin' },
+{ num: 'Elementary Education' },
+{ num: 'Engineering Management' },
+{ num: 'Engineering Mechanics' },
+{ num: 'Geology' },
+{ num: 'Health Services Research' },
+{ num: 'Higher Education' },
+{ num: 'Human Movement Science' },
+{ num: 'Humanities' },
+{ num: 'Industrial/Organizat Psyc' },
+{ num: 'Instructional Design/Technol' },
+{ num: 'Literacy Leadership' },
+{ num: 'Modeling and Simulation' },
+{ num: 'Oceanography' },
+{ num: 'Psyc: Applied Experimental' },
+{ num: 'Psyc: Industrial-Organization' },
+{ num: 'Psychology: Human Factors' },
+{ num: 'Public Admin/Urban Policy' },
+{ num: 'Public Administration' },
+{ num: 'Reading' },
+{ num: 'Secondary Education' },
+{ num: 'Special Education' },
+{ num: 'Systems Engineering' },
+{ num: 'Urban Services' },
+{ num: 'Urban Studies' },
+{ num: 'Environmental Engineering/ME' },
+{ num: 'Environmental Engineering/MS' },
+{ num: 'Criminology-Criminal Justice' },
+{ num: 'Public Health' },
+{ num: 'African Amer & African Studies' },
+{ num: 'Engineering Doctorate' },
+{ num: 'Nursing Practice' },
+{ num: 'Visual Studies' },
+{ num: 'International Studies BA/MA' },
+{ num: 'Lifespan/Digital Communication' },
+{ num: 'Business Analytics' },
+{ num: 'Info Systems & Technology' },
+{ num: 'Modeling & Simulation Engr' },
+{ num: 'Park Recreation Tourism Stds' },
+{ num: 'Studio Art' },
+{ num: 'Biomedical Engineering' },
+{ num: 'Civil/Environmental Engineerng' },
+{ num: 'Elementary Education-MCTP' },
+{ num: 'Secondary Education-MCTP' },
+{ num: 'Music Industry' },
+{ num: 'Applied Experimental Psyc' },
+{ num: 'Electrical & Computer Engr' },
+{ num: 'Electrical/Computer Engineerng' },
+{ num: 'Human Factors Psychology' },
+{ num: 'Industrial/Organizational Psyc' },
+{ num: 'Non-degree Undergrad' },
+{ num: 'Athletic Training' },
+{ num: 'Business Admin' },
+{ num: 'Business Adminis' },
+{ num: 'Public Admin' },
+{ num: 'African Amer and African Stud' },
+{ num: 'Cybersecurity' },
+{ num: 'Info Systems and Technology' },
+{ num: 'Leadership' },
+{ num: 'Modeling and Simulation Engr' },
+{ num: 'Professional Writing' },
+{ num: 'Work and Professional Study' },
+{ num: 'Computer Sci' },
+{ num: 'Education' },
+{ num: 'Electrical and Computer Engr' },
+{ num: 'Engineering' }
+      ]
+});
+
+numbers.initialize();
+
+$('.typeahead').typeahead(null, {
+    displayKey: 'num',
+    source: numbers.ttAdapter()
+});
+
+$('.typeahead').on('typeahead:selected', function (e, datum) {
+    //console.log(datum.num);
+	$('#tagsname').html(this.value);
+	
+	  if(document.getElementById('GradCount').checked == true)
+  drawMap.colorMap();
+  else if(document.getElementById('UnderGradCount').checked == true)
+  drawMap.colorMapUnderGrad();
+  else if(document.getElementById('AllCount').checked == true)
+  drawMap.colorMapAll();
+  
+	favMajor()
+});
+
+
+function drawMap(){
+
+var width  = 960,
+    height = 550;
+
+var color = d3.scale.category10();
+
+var projection = d3.geo.mercator()
+                .translate([480, 300])
+                .scale(970);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+	d3.select("#worldmap").remove();
+	//d3.select("#ID1").remove();
+var svg = d3.select("#map").append("svg").attr("id", "worldmap")
+    .attr("width", width)
+    .attr("height", height);
+
+var tooltip = d3.select("#map").append("div")
+    .attr("class", "tooltip");
+	
+var dataset = [];
+
+queue()
+    .defer(d3.json, "data/world-110m.json")
+    .defer(d3.tsv, "data/Country_Names.tsv")
+    .await(ready);
+
+function ready(error, world, names) {
+
+  var countries = topojson.object(world, world.objects.countries).geometries,
+      neighbors = topojson.neighbors(world, countries),
+      i = -1,
+      n = countries.length;
+
+  countries.forEach(function(d) { 
+    d.name = names.filter(function(n) { return d.id == n.id; })[0].name; 
+  });
+
+  
+
+
+
+var country = svg.selectAll(".country").data(countries);
+
+  country
+   .enter()
+    .insert("path")
+    .attr("class", "country")    
+      .attr("title", function(d,i) { return d.name; })
+      .attr("d", path);
+	  
+	  colorMap();
+	  
+	  function colorMap() {
+	  d3.csv("bar-data.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.value = +d.value;
+    });
+
+
+var SelYear = d3.select("#year").text();
+var SelMajor = d3.select("#tagsname").text();
+
+var FiltData = data.filter(function(d, i) { if(d.date == SelYear && d.major == SelMajor && d.level == "grad") return d;})
+
+ var split = [10, 15, 20, 30, 35, 40, 50, 70];
+  var colors = ["#ebebff","#c4c4ff","#9d9dff","#7676ff","#4e4eff","#2727ff","#0000ff","#000089","#00003b"];
+
+  var color = d3.scale.threshold()
+      .domain(split)
+      .range(colors);
+
+country.transition().duration(1000).delay(function(d, i) {return i * 10;}).style("fill", colorize);
+
+function colorize(data) { 
+
+var m = FiltData.filter(function(FiltData) { return FiltData.countryName == data.name; } )
+
+
+if(m.length>0) {  return color(m[0].value) }
+
+}
+
+
+
+	
+});
+
+}
+
+drawMap.colorMap = colorMap;
+
+
+function colorMapUnderGrad() {
+	  d3.csv("bar-data.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.value = +d.value;
+    });
+
+
+var SelYear = d3.select("#year").text();
+var SelMajor = d3.select("#tagsname").text();
+
+var FiltData = data.filter(function(d, i) { if(d.date == SelYear && d.major == SelMajor && d.level == "undergrad") return d;})
+
+ var split = [10, 15, 20, 30, 35, 40, 50, 70];
+  var colors = ["#ebebff","#c4c4ff","#9d9dff","#7676ff","#4e4eff","#2727ff","#0000ff","#000089","#00003b"];
+
+  var color = d3.scale.threshold()
+      .domain(split)
+      .range(colors);
+
+country.transition().duration(1000).delay(function(d, i) {return i * 10;}).style("fill", colorize);
+
+function colorize(data) { 
+
+
+var m = FiltData.filter(function(FiltData) { return FiltData.countryName == data.name; } )
+
+
+if(m.length>0) {  return color(m[0].value) }
+
+}
+	
+});
+
+}
+
+drawMap.colorMapUnderGrad = colorMapUnderGrad;
+
+function colorMapAll() {
+	  d3.csv("bar-data.csv", function(error, data) {
+	  
+	  
+    data.forEach(function(d) {
+        d.value = +d.value;
+    });
+
+
+var SelYear = d3.select("#year").text();
+var SelMajor = d3.select("#tagsname").text();
+
+var FiltData = data.filter(function(d, i) { if(d.date == SelYear) return d;})
+
+			var data1 = d3.nest()
+					  .key(function(d) { return d.countryName;})
+					  .rollup(function(d) { 
+						return d3.sum(d, function(g) {return g.value; });
+					}).entries(FiltData);
+					
+					
+				FiltData = data1;
+				
+				
+				
+				
+					
+					 var split = [10, 15, 20, 30, 35, 40, 50, 70];
+  var colors = ["#ebebff","#c4c4ff","#9d9dff","#7676ff","#4e4eff","#2727ff","#0000ff","#000089","#00003b"];
+
+  var color = d3.scale.threshold()
+      .domain(split)
+      .range(colors);
+
+country.transition().duration(1000).delay(function(d, i) {return i * 10;}).style("fill", colorize);
+
+function colorize(data) { 
+
+var m = FiltData.filter(function(FiltData) { return FiltData.key == data.name; } )
+console.log(m)
+if(m.length>0) {  return color(m[0].values) }
+
+} 
+	
+});
+
+}
+
+drawMap.colorMapAll = colorMapAll;
+
+
+	  
+	  			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+				
+	var bodyNode = d3.select('body').node();
+	country
+      .on("mouseover", function(d,i) {
+	  
+	  var absoluteMousePos = d3.mouse(bodyNode);
+        
+		var contsel = d.name;
+		
+		
+		
+		
+		var newData1 = d3.select("#tagsname").text();	
+		
+		
+		var newYear = d3.select("#year").text();
+		
+		
+		
+		
+		
+		data.forEach(function(d) {
+		
+						if (d.countryName == contsel && d.major == newData1 && d.date == newYear && d.level == "undergrad")
+						d3.select("#CMCountU").text(d.value);
+						
+						if (d.countryName == contsel && d.major == newData1 && d.date == newYear && d.level == "grad")
+						d3.select("#CMCountG").text(d.value);
+						
+					/*	if(document.getElementById('GradCount').checked == true) {
+						
+								if (d.countryName == contsel && d.major == newData1 && d.date == newYear && d.level == "grad")
+								{
+		
+								d3.select("#CMCount").text(d.value);
+								}
+							}
+						else if(document.getElementById('UnderGradCount').checked == true) {
+						if (d.countryName == contsel && d.major == newData1 && d.date == newYear && d.level == "undergrad")
+								{
+		
+								d3.select("#CMCount").text(d.value);
+								}
+							} */
+				});
+				
+		var CMCountG = d3.select("#CMCountG").text();
+		var CMCountU = d3.select("#CMCountU").text();
+		
+        tooltip
+          .classed("hidden", false)
+		  //.style("top", (d3.event.pageY + 16) + "px")
+		  .style('top', (absoluteMousePos[1] - 15)+'px')
+		  .style('left', (absoluteMousePos[0] + 10)+'px')
+		  .style('position', 'absolute')
+		  .style('z-index', 1001);
+		  //.style("left", (d3.event.pageX + 16) + "px");
+          //.attr("style", "left:"+(mouse[0]+300)+"px;top:"+(mouse[1] + 150)+"px")
+		  //.attr("style", "position: relative")
+          //.html(d.name + "," + CMCount)
+		  
+		  //var spaceCircles = [30, 70, 110];
+		  if(document.getElementById('MapPre').checked == true && document.getElementById('AllCount').checked == false) {
+		  
+		   d3.select(".tooltip").append("div")
+										.attr("id", "tipcountry").append("text").text("Country - " + contsel + ", Grad Count - " + CMCountG + ", UnderGrad Count - " + CMCountU);
+		  
+		  d3.select(".tooltip").append("div")
+										.attr("id", "tipchart1");
+										
+		   d3.select(".tooltip").append("div")
+										.attr("id", "tipchart2");
+										
+			d3.select(".tooltip").append("div")
+										.attr("id", "tipchart3");
+										
+										chart1();
+										chart2();
+										chart3();
+		  
+		  function chart1() {
+		  var marginTool = {top: 10, right: 10, bottom: 35, left: 40},
+			widthTool = 300 - marginTool.left - marginTool.right,
+			heightTool = 150 - marginTool.top - marginTool.bottom;		  
+		  
+		  d3.select("#IDTOOL").remove();
+		  
+		  var parseDate = d3.time.format("%Y").parse;
+		  
+		  var xTool = d3.time.scale().range([0, widthTool]);
+		  var yTool = d3.scale.linear().range([heightTool, 0]);
+		  
+		  var xAxisTool = d3.svg.axis().scale(xTool)
+				.orient("bottom").ticks(5);
+
+			var yAxisTool = d3.svg.axis().scale(yTool)
+				.orient("left");
+				
+				
+				var valuelineTool = d3.svg.line()
+					.x(function(d) { return xTool(d.date); })
+					.y(function(d) { return yTool(d.value); });
+					
+					var svgTool = d3.select("#tipchart1").append("svg").attr("id", "IDTOOL")
+						   .attr("width", widthTool + marginTool.left + marginTool.right)
+						   .attr("height", heightTool + marginTool.top + marginTool.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginTool.left + "," + marginTool.top + ")");
+						   
+						svgTool.append("text")
+								.attr("x", 10)
+								.attr("y", marginTool.top)
+								.text("Graduate HeadCount");
+					
+					var lineSvgTool = svgTool.append("g");
+					
+					
+					d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+			
+										data.forEach(function(d) {
+											d.date = parseDate(d.date);
+											d.value = +d.value;
+										});
+										
+					MaxYTool = d3.max(data, function(d) {  if (d.level == "grad") return d.value; });
+					
+					var TempData = data.filter(function(d, i) { if (d.major == newData1 && d.countryName == contsel && d.level == "grad") return d;})
+					
+					data = TempData;
+					
+					
+					
+				    xTool.domain(d3.extent(data, function(d) { return d.date; }));
+					yTool.domain([0, MaxYTool]);
+					
+					
+					   lineSvgTool.append("path")
+							.attr("class", "line")
+							.attr("d", valuelineTool(data)); 
+	
+						// Add the X Axis
+						svgTool.append("g")
+							.attr("class", "x axis")
+							.attr("transform", "translate(0," + heightTool + ")")
+							.call(xAxisTool);
+
+						// Add the Y Axis
+						svgTool.append("g")
+							.attr("class", "y axis")
+							.call(yAxisTool);
+				
+					});
+		}
+		
+		function chart2() {
+		  var marginTool = {top: 10, right: 10, bottom: 35, left: 40},
+			widthTool = 300 - marginTool.left - marginTool.right,
+			heightTool = 150 - marginTool.top - marginTool.bottom;		  
+		  
+		  d3.select("#IDTOOL2").remove();
+		  
+		  var parseDate = d3.time.format("%Y").parse;
+		  
+		  var xTool = d3.time.scale().range([0, widthTool]);
+		  var yTool = d3.scale.linear().range([heightTool, 0]);
+		  
+		  var xAxisTool = d3.svg.axis().scale(xTool)
+				.orient("bottom").ticks(5);
+
+			var yAxisTool = d3.svg.axis().scale(yTool)
+				.orient("left");
+				
+				
+				var valuelineTool = d3.svg.line()
+					.x(function(d) { return xTool(d.date); })
+					.y(function(d) { return yTool(d.value); });
+					
+					var svgTool = d3.select("#tipchart2").append("svg").attr("id", "IDTOOL2")
+						   .attr("width", widthTool + marginTool.left + marginTool.right)
+						   .attr("height", heightTool + marginTool.top + marginTool.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginTool.left + "," + marginTool.top + ")");
+						   
+					svgTool.append("text")
+								.attr("x", 10)
+								.attr("y", marginTool.top)
+								.text("UnderGraduate HeadCount");
+					
+					var lineSvgTool = svgTool.append("g");
+					
+					
+					d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+			
+										data.forEach(function(d) {
+											d.date = parseDate(d.date);
+											d.value = +d.value;
+										});
+										
+					MaxYTool = d3.max(data, function(d) {  if (d.level == "undergrad") return d.value; });
+					
+					var TempData = data.filter(function(d, i) { if (d.major == newData1 && d.countryName == contsel && d.level == "undergrad") return d;})
+					
+					data = TempData;
+					
+				    xTool.domain(d3.extent(data, function(d) { return d.date; }));
+					yTool.domain([0, MaxYTool]);
+					
+					
+					   lineSvgTool.append("path")
+							.attr("class", "line")
+							.attr("d", valuelineTool(data)); 
+	
+						// Add the X Axis
+						svgTool.append("g")
+							.attr("class", "x axis")
+							.attr("transform", "translate(0," + heightTool + ")")
+							.call(xAxisTool);
+
+						// Add the Y Axis
+						svgTool.append("g")
+							.attr("class", "y axis")
+							.call(yAxisTool);
+				
+					});
+		}
+		
+		
+		function chart3() {
+			
+			var marginMaj = {top: 20, right: 20, bottom: 70, left: 40},
+			widthMaj = 600 - marginMaj.left - marginMaj.right,
+			heightMaj = 300 - marginMaj.top - marginMaj.bottom;
+			
+			newYear = d3.select("#year").text();
+			var Selcountry = d3.select("#countryy").text();
+			
+			var parseDate = d3.time.format("%Y").parse;
+			
+			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+						
+			data.forEach(function(d) {
+		
+						//d.date = parseDate(d.date);
+						d.value = +d.value;
+				});
+				
+
+									
+			
+				
+			MaxY = d3.max(data, function(d) {  if (d.level == "grad")  return d.value; });
+			
+			console.log(data);
+			
+			var newdata = data.filter(function(d, i) { if (d.date == newYear && d.countryName == contsel && d.level == "grad") return d;})
+	
+	
+			data = newdata;
+			
+			
+			data.sort(function(a, b) { return b.value - a.value; })
+			
+			console.log(data);
+			
+			sliced = data.slice(0, 5);
+			
+			
+			//console.log(TopData);
+			
+			data = sliced;
+		
+			var xDM = d3.scale.linear()
+						.range([0,widthMaj]);
+
+			var yDM = d3.scale.ordinal()
+						.rangeRoundBands([0, heightMaj], .2);
+
+			var xAxisDM = d3.svg.axis()
+						  .scale(yDM)
+						  .orient("left");
+
+			var yAxisDM = d3.svg.axis()
+						  .scale(xDM)
+						  .orient("bottom");
+	
+			d3.select("#IDTOOL3").remove();
+
+			var svgdiffMaj = d3.select("#tipchart3").append("svg").attr("id", "IDTOOL3")
+						   .attr("width", widthMaj + marginMaj.left + marginMaj.right)
+						   .attr("height", heightMaj + marginMaj.top + marginMaj.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginMaj.left + "," + marginMaj.top + ")");
+			
+	 
+						   
+			xDM.domain([0, MaxY]);
+			yDM.domain(data.map(function(d) { return d.major; }));
+			
+	svgdiffMaj.selectAll("text")
+		.data(data)
+		.enter()
+		.append("text")
+		.attr("y", function(d) { return yDM(d.major) + 20; })
+		.text(function(d) {return d.major});
+		
+	svgdiffMaj.append("text")
+	   .attr("x", widthMaj/2 - marginMaj.right - 20)
+	   .attr("y", marginMaj.top - 30)
+	   .text("Top 5 Grad Majors");
+			
+		  svgdiffMaj.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(0," + heightMaj + ")")
+			.style("font-size", "12px")
+			.call(yAxisDM)
+			.append("text")
+			.attr("x", widthMaj - marginMaj.right - 11)
+			.attr("y", marginMaj.bottom - 45)
+			.attr("dy", ".71em")
+			.style("font-size", "15px")
+			.style("text-anchor", "middle")
+			.text("Count");
+
+		svgdiffMaj.append("g")
+			.attr("class", "x axis")
+			.attr("id", "HorBarXaxisTool")
+			.style("font-size", "12px")
+			.call(xAxisDM);
+			
+			d3.select("#HorBarXaxisTool").selectAll("text").attr("opacity", 0);
+
+  svgdiffMaj.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("y", function(d) { return yDM(d.major); })
+      .attr("height", yDM.rangeBand())
+      .attr("width", function(d) { return  xDM(d.value);})
+	  .attr("opacity", .5)
+	  .attr("fill", "steelblue");
+								 
+	});
+}
+		
+		
+		}
+							
+		else {
+				if(document.getElementById('AllCount').checked == true) {
+				
+				var Selcountry = d.name
+			
+							d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+						
+								data.forEach(function(d) {
+		
+								//d.date = parseDate(d.date);
+								d.value = +d.value;
+								});
+			
+								var newdata = data.filter(function(d, i) { if (d.date == newYear && d.countryName == Selcountry) return d;})
+								
+								tooltip.html("Country - " + Selcountry);
+								tooltip.selectAll("div").data(newdata).enter().append("div").append("text").text(function(d, i) { return "Major : " + d.major + " , " + "Level : " + d.level});
+			
+							});
+				}							
+		
+				else
+				tooltip.html(d.name + " - " + " Grad Count : " + CMCountG + ", UnderGrad Count : " + CMCountU)
+		}
+      })
+      .on("mouseout",  function(d,i) {
+        tooltip.classed("hidden", true);
+		
+		
+		d3.select(".tooltip").html("");
+		d3.select("#CMCountG").text("0");
+		d3.select("#CMCountU").text("0");
+      })
+	  .on("click", function(d,i) {
+	  
+
+	  var Selcountry = d.name;
+	  
+	  d3.select("#countryy").text(Selcountry);
+	  
+			d3.select(prev).style("stroke", null).style("stroke-width", ".5px");
+			current = this;
+			//console.log(this);
+			d3.select(current).style("stroke","red").style("stroke-width", "2px");
+			prev=current;
+			//console.log(prev);
+		document.getElementById("LineChart").scrollIntoView(true);
+	  
+		favMajor();
+		diffMajor();
+		diffMajor2();
+});
+//favMajor();
+
+});
+
+}
+} // end of draw map
+
+	function updateBar(newData) {
+	
+		
+			var Selcountry = d3.select("#countryy").text();
+			//console.log(Selcountry);
+
+			var margin = {top: 20, right: 70, bottom: 70, left: 40},
+					width = 600 - margin.left - margin.right,
+					height = 300 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%Y").parse;
+bisectDate = d3.bisector(function(d) { return d.date; }).left;
+    //formatValue = d3.format(",.2f"),
+    //formatCurrency = function(d) { return "$" + formatValue(d); };
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x).ticks(5)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left");
+
+// Define the line
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+	
+			d3.select("#ID1").remove();
+
+	
+						   
+			var svg = d3.select("#LineChart").append("svg").attr("id", "ID1")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+	
+	svg.append("text")
+	   .attr("x", width/2 - 10)
+	   .attr("y", margin.top - 30)
+	   .text("Graduate HeadCount")
+	   .style("font-weight", "bold");
+						   
+			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+			
+			data.forEach(function(d) {
+		
+						d.date = parseDate(d.date);
+						d.value = +d.value;
+				});
+				
+			
+			MaxY = d3.max(data, function(d) {  if (d.level == "grad") return d.value; });
+			
+			
+			var TempData = data.filter(function(d, i) { if (d.major == newData && d.countryName == Selcountry && d.level == "grad") return d;})
+	
+	
+			data = TempData;
+			
+			data.sort(function(a, b) {
+					return a.date - b.date;
+						});
+			
+		 //x.domain([data[0].date, data[data.length - 1].date]);
+		 x.domain(d3.extent(data, function(d) { return d.date; }));
+		y.domain([0, MaxY]);
+		
+		
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.style("font-size", "12px")
+			.call(xAxis)
+			.append("text")
+			.attr("x", width - margin.right)
+			.attr("y", margin.bottom - 35)
+			.style("font-size", "15px")
+			.text("Year");
+
+	svg.append("g")
+		.attr("class", "y axis")
+		.style("font-size", "12px")
+		.call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("font-size", "15px")
+		.style("text-anchor", "end")
+		.text("Count");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+	  
+	  var focus = svg.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+
+	
+    focus.append("circle")
+      .attr("r", 4.5);
+
+  focus.append("text")
+      .attr("x", 9)
+      .attr("dy", ".35em");
+
+  svg.append("rect")
+      .attr("class", "overlay")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mouseover", function() { focus.style("display", null); })
+      .on("mouseout", function() { focus.style("display", "none"); })
+      .on("mousemove", mousemove);
+
+  function mousemove() {
+    var x0 = x.invert(d3.mouse(this)[0]),
+        i = bisectDate(data, x0, 1),
+        d0 = data[i - 1],
+        d1 = data[i],
+        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+    focus.select("text").text(d.date.getFullYear() +"," + d.value);
+  }
+  
+
+		});
+}
+
+	function updateBar2(newData) {
+	
+		
+			var Selcountry = d3.select("#countryy").text();
+			//console.log(Selcountry);
+
+			var margin = {top: 20, right: 70, bottom: 70, left: 50},
+					width = 600 - margin.left - margin.right,
+					height = 300 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%Y").parse;
+bisectDate = d3.bisector(function(d) { return d.date; }).left;
+    //formatValue = d3.format(",.2f"),
+    //formatCurrency = function(d) { return "$" + formatValue(d); };
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x).ticks(5)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left");
+
+// Define the line
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+	
+			d3.select("#ID4").remove();
+
+	
+						   
+			var svg = d3.select("#LineChart2").append("svg").attr("id", "ID4")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+	svg.append("text")
+	   .attr("x", width/2 -10)
+	   .attr("y", margin.top - 30)
+	   .text("UnderGrad HeadCount")
+	   .style("font-weight", "bold");
+						   
+			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+			
+			data.forEach(function(d) {
+		
+						d.date = parseDate(d.date);
+						d.value = +d.value;
+				});
+				
+			
+			MaxY = d3.max(data, function(d) {  if (d.level == "undergrad") return d.value; });
+			
+			
+			var TempData = data.filter(function(d, i) { if (d.major == newData && d.countryName == Selcountry && d.level == "undergrad") return d;})
+	
+	
+			data = TempData;
+			
+			data.sort(function(a, b) {
+					return a.date - b.date;
+						});
+			
+		 //x.domain([data[0].date, data[data.length - 1].date]);
+		 x.domain(d3.extent(data, function(d) { return d.date; }));
+		//y.domain(d3.extent(data, function(d) { return d.value; }));
+		y.domain([0, MaxY]);
+		
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.style("font-size", "12px")
+			.call(xAxis)
+			.append("text")
+			.attr("x", width - margin.right)
+			.attr("y", margin.bottom - 35)
+			.style("font-size", "15px")
+			.text("Year");
+
+	svg.append("g")
+		.attr("class", "y axis")
+		.call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.text("Count");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+	  
+	  var focus = svg.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+
+	
+    focus.append("circle")
+      .attr("r", 4.5);
+
+  focus.append("text")
+      .attr("x", 9)
+      .attr("dy", ".35em");
+
+  svg.append("rect")
+      .attr("class", "overlay")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mouseover", function() { focus.style("display", null); })
+      .on("mouseout", function() { focus.style("display", "none"); })
+      .on("mousemove", mousemove);
+
+  function mousemove() {
+    var x0 = x.invert(d3.mouse(this)[0]),
+        i = bisectDate(data, x0, 1),
+        d0 = data[i - 1],
+        d1 = data[i],
+        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+    focus.select("text").text(d.date.getFullYear() +"," + d.value);
+  }
+  
+
+		});
+}
+
+			function diffMajor() {
+			
+			var marginMaj = {top: 20, right: 20, bottom: 70, left: 40},
+			widthMaj = 600 - marginMaj.left - marginMaj.right,
+			heightMaj = 300 - marginMaj.top - marginMaj.bottom;
+			
+			newYear = d3.select("#year").text();
+			var Selcountry = d3.select("#countryy").text();
+			
+			var parseDate = d3.time.format("%Y").parse;
+			
+			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+						
+			data.forEach(function(d) {
+		
+						//d.date = parseDate(d.date);
+						d.value = +d.value;
+				});
+				
+
+									
+			
+				
+			MaxY = d3.max(data, function(d) {  if (d.level == "grad")  return d.value; });
+			
+			console.log(data);
+			
+			var newdata = data.filter(function(d, i) { if (d.date == newYear && d.countryName == Selcountry && d.level == "grad") return d;})
+	
+	
+			data = newdata;
+			
+			
+			data.sort(function(a, b) { return b.value - a.value; })
+			
+			console.log(data);
+			
+			sliced = data.slice(0, 5);
+			
+			
+			//console.log(TopData);
+			
+			data = sliced;
+		
+			var xDM = d3.scale.linear()
+						.range([0,widthMaj]);
+
+			var yDM = d3.scale.ordinal()
+						.rangeRoundBands([0, heightMaj], .2);
+
+			var xAxisDM = d3.svg.axis()
+						  .scale(yDM)
+						  .orient("left");
+
+			var yAxisDM = d3.svg.axis()
+						  .scale(xDM)
+						  .orient("bottom");
+	
+			d3.select("#ID2").remove();
+
+			var svgdiffMaj = d3.select("#HorBar").append("svg").attr("id", "ID2")
+						   .attr("width", widthMaj + marginMaj.left + marginMaj.right)
+						   .attr("height", heightMaj + marginMaj.top + marginMaj.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginMaj.left + "," + marginMaj.top + ")");
+			
+	 
+						   
+			xDM.domain([0, MaxY]);
+			yDM.domain(data.map(function(d) { return d.major; }));
+			
+	svgdiffMaj.selectAll("text")
+		.data(data)
+		.enter()
+		.append("text")
+		.attr("y", function(d) { return yDM(d.major) + 20; })
+		.text(function(d) {return d.major + " ("+d.value+")"});
+		
+	svgdiffMaj.append("text")
+	   .attr("x", widthMaj/2 - marginMaj.right - 20)
+	   .attr("y", marginMaj.top - 30)
+	   .text("Top 5 Grad Majors")
+	   .style("font-weight", "bold");
+			
+		  svgdiffMaj.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(0," + heightMaj + ")")
+			.style("font-size", "12px")
+			.call(yAxisDM)
+			.append("text")
+			.attr("x", widthMaj - marginMaj.right - 11)
+			.attr("y", marginMaj.bottom - 45)
+			.attr("dy", ".71em")
+			.style("font-size", "15px")
+			.style("text-anchor", "middle")
+			.text("Count");
+
+		svgdiffMaj.append("g")
+			.attr("class", "x axis")
+			.attr("id", "HorBarXaxis")
+			.style("font-size", "12px")
+			.call(xAxisDM);
+			
+			d3.select("#HorBarXaxis").selectAll("text").attr("opacity", 0);
+
+  svgdiffMaj.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("y", function(d) { return yDM(d.major); })
+      .attr("height", yDM.rangeBand())
+      .attr("width", function(d) { return  xDM(d.value);})
+	  .attr("opacity", .5)
+	  .attr("fill", "steelblue");
+								 
+	});
+}
+
+		function diffMajor2() {
+			
+			var marginMaj = {top: 20, right: 20, bottom: 70, left: 40},
+			widthMaj = 600 - marginMaj.left - marginMaj.right,
+			heightMaj = 300 - marginMaj.top - marginMaj.bottom;
+			
+			newYear = d3.select("#year").text();
+			var Selcountry = d3.select("#countryy").text();
+			
+			var parseDate = d3.time.format("%Y").parse;
+			
+			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+						
+			data.forEach(function(d) {
+		
+						//d.date = parseDate(d.date);
+						d.value = +d.value;
+				});
+				
+
+									
+			
+			
+			MaxY = d3.max(data, function(d) {  if (d.level == "undergrad")  return d.value; });
+			
+			console.log(data);
+			
+			var newdata = data.filter(function(d, i) { if (d.date == newYear && d.countryName == Selcountry && d.level == "undergrad") return d;})
+	
+	
+			data = newdata;
+			
+			
+			data.sort(function(a, b) { return b.value - a.value; })
+			
+			console.log(data);
+			
+			sliced = data.slice(0, 5);
+			
+			
+			//console.log(TopData);
+			
+			data = sliced;
+		
+			var xDM = d3.scale.linear()
+						.range([0,widthMaj]);
+
+			var yDM = d3.scale.ordinal()
+						.rangeRoundBands([0, heightMaj], .2);
+
+			var xAxisDM = d3.svg.axis()
+						  .scale(yDM)
+						  .orient("left");
+
+			var yAxisDM = d3.svg.axis()
+						  .scale(xDM)
+						  .orient("bottom");
+	
+			d3.select("#ID5").remove();
+
+			var svgdiffMaj = d3.select("#HorBarUnderGrad").append("svg").attr("id", "ID5")
+						   .attr("width", widthMaj + marginMaj.left + marginMaj.right)
+						   .attr("height", heightMaj + marginMaj.top + marginMaj.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginMaj.left + "," + marginMaj.top + ")");
+			
+	 
+						   
+			xDM.domain([0, MaxY]);
+			yDM.domain(data.map(function(d) { return d.major; }));
+			
+	svgdiffMaj.selectAll("text")
+		.data(data)
+		.enter()
+		.append("text")
+		.attr("y", function(d) { return yDM(d.major) + 20; })
+		.text(function(d) {return d.major + " ("+d.value+")"});
+		
+	
+		
+	svgdiffMaj.append("text")
+	   .attr("x", widthMaj/2 - marginMaj.right - 20)
+	   .attr("y", marginMaj.top - 30)
+	   .text("Top 5 UnderGrad Majors")
+	   .style("font-weight", "bold");
+			
+		  svgdiffMaj.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(0," + heightMaj + ")")
+			.style("font-size", "12px")
+			.call(yAxisDM)
+			.append("text")
+			.attr("x", widthMaj - marginMaj.right - 11)
+			.attr("y", marginMaj.bottom - 45)
+			.attr("dy", ".71em")
+			.style("font-size", "15px")
+			.style("text-anchor", "middle")
+			.text("Count");
+
+		svgdiffMaj.append("g")
+			.attr("class", "x axis")
+			.attr("id", "HorBarXaxisUnderGrad")
+			.style("font-size", "12px")
+			.call(xAxisDM);
+			
+			d3.select("#HorBarXaxisUnderGrad").selectAll("text").attr("opacity", 0);
+
+  svgdiffMaj.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("y", function(d) { return yDM(d.major); })
+      .attr("height", yDM.rangeBand())
+      .attr("width", function(d) { return  xDM(d.value);})
+	  .attr("opacity", .5)
+	  .attr("fill", "steelblue");
+								 
+	});
+}
+
+
+
+			
+/* function AllCount() {
+	
+		
+			var Selcountry = d3.select("#countryy").text();
+			//console.log(Selcountry);
+
+			var marginMaj = {top: 20, right: 20, bottom: 70, left: 40},
+			widthMaj = 600 - marginMaj.left - marginMaj.right,
+			heightMaj = 300 - marginMaj.top - marginMaj.bottom;
+
+			// Parse the date / time
+// Parse the date / time
+var parseDate = d3.time.format("%Y").parse;
+
+// Set the ranges
+var x = d3.time.scale().range([0, widthMaj]);
+var y = d3.scale.linear().range([heightMaj, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left");
+
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+	
+			d3.select("#ID3").remove();
+
+			var svgMaj = d3.select("#LineChartAll").append("svg").attr("id", "ID3")
+						   .attr("width", widthMaj + marginMaj.left + marginMaj.right)
+						   .attr("height", heightMaj + marginMaj.top + marginMaj.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginMaj.left + "," + marginMaj.top + ")");
+						   
+						   
+				svgMaj.append("text")
+					.attr("x", widthMaj/2 - marginMaj.right - 20)
+					.attr("y", marginMaj.top - 30)
+					.text("All Major Count");
+						   
+						   
+			var lineSvg = svgMaj.append("g");
+			
+			d3.csv("http://webspace.cs.odu.edu/~nmajeti/InfoViz/World/bar-data.csv", function(error, data) {
+			
+				data.forEach(function(d) {
+						
+						d.value = +d.value;
+				});
+				
+				var Tempdataformax = data.filter(function(d, i) { if (d.countryName != "United States") return d;});
+			
+						var dataformax = d3.nest()
+					  .key(function(d) { return d.date;})
+					  .key(function(d) { return d.countryName;})
+					  .rollup(function(d) { 
+						return d3.sum(d, function(g) {return g.value; });
+					}).entries(Tempdataformax);
+					
+					var xy = [];
+					for(var i=0; i<dataformax.length; i++)
+						{
+							//console.log(dataformax[i]);
+							for(var j=0; j<dataformax[i].values.length; j++)
+							{
+								xy.push(dataformax[i].values[j].values);
+								
+							}
+							
+						}
+								
+					console.log(d3.max(xy));
+			
+			var TempData1 = data.filter(function(d, i) { if (d.countryName == Selcountry) return d;});
+			
+			data = TempData1;
+			
+			
+		
+		
+			var data1 = d3.nest()
+					  .key(function(d) { return d.date;})
+					  .rollup(function(d) { 
+						return d3.sum(d, function(g) {return g.value; });
+					}).entries(data);
+  
+  
+  console.log(data1);
+  
+  
+		data = data1;
+		
+		
+		data.forEach(function(d) {
+		d.date = d.key;
+		d.value = d.values;
+		});
+		
+		
+		
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+				});
+				
+				MaxY = d3.max(data, function(d) {  return d.value; });
+		
+			 x.domain(d3.extent(data, function(d) { return d.date; }));
+			//y.domain([0, d3.max(data, function(d) { return d.value; })]);
+			y.domain([0, MaxY]);
+	   
+    lineSvg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(data[0].value))
+		.transition()
+		.duration(1000)
+		.attrTween('d', pathTween);
+	
+	function pathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, data.length + 1));
+        return function(t) {
+            return valueline(data.slice(0, interpolate(t)));
+        };
+    } 
+	
+	  // Add the X Axis
+    svgMaj.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + heightMaj + ")")
+		.style("font-size", "12px")
+        .call(xAxis)
+		.append("text")
+		.attr("x", widthMaj - marginMaj.right)
+		.attr("y", marginMaj.bottom - 35)
+		.style("font-size", "15px")
+		.text("Year");
+
+    // Add the Y Axis
+    svgMaj.append("g")
+        .attr("class", "y axis")
+		.style("font-size", "12px")
+        .call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.style("font-size", "15px")
+		.text("Count");
+
+		});
+} */
+
+function favMajor()
+	{
+		var newData = d3.select("#tagsname").text();
+		updateBar(newData);
+		updateBar2(newData);
+	}
+	
+function gender()
+	{
+				var marginMaj = {top: 20, right: 20, bottom: 70, left: 60},
+			widthMaj = 600 - marginMaj.left - marginMaj.right,
+			heightMaj = 300 - marginMaj.top - marginMaj.bottom;
+
+			var svgMaj = d3.select("#GenderChart").append("svg").attr("id", "IDMF")
+						   .attr("width", widthMaj + marginMaj.left + marginMaj.right)
+						   .attr("height", heightMaj + marginMaj.top + marginMaj.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginMaj.left + "," + marginMaj.top + ")");
+						   
+	svgMaj.append("text")
+	   .attr("x", widthMaj/2 - marginMaj.right - 20)
+	   .attr("y", marginMaj.top - 30)
+	   .text("Grad Gender Count")
+	   .style("font-weight", "bold");
+	
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 60},
+    width = 600 - margin.left - margin.right,
+    height = 270 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%Y").parse,
+    formatDate = d3.time.format("%Y"),
+    bisectDate = d3.bisector(function(d) { return d.Year; }).left;
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(5);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(5);
+
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.Men); });
+	
+var valueline1 = d3.svg.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.Women); });
+	
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.Participants); });
+    
+
+var lineSvg = svgMaj.append("g"); 
+
+var lineSvg1 = svgMaj.append("g"); 
+
+var lineSvg2 = svgMaj.append("g");
+
+
+// Get the data
+d3.csv("genderdetails.csv", function(error, data) {
+
+var Tempdata = data.filter(function(d, i) { if (d.level == "grad") return d;});
+
+data = Tempdata;
+
+    data.forEach(function(d) {
+        d.Year = parseDate(d.Year);
+        d.Men = +d.Men;
+		d.Women = +d.Women;
+		d.Participants = +d.Participants;
+    });
+
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.Year; }));
+    y.domain([0, d3.max(data, function(d) { return d.Participants; })]);
+
+    // Add the valueline path.
+    lineSvg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(data));
+	
+	 lineSvg1.append("path")
+        .attr("class", "line1")
+        .attr("d", valueline1(data));
+	
+	lineSvg2.append("path")
+        .attr("class", "line2")
+        .attr("d", valueline2(data));
+	
+            var scat = svgMaj.selectAll("circle")
+                .data(data)
+                .enter()
+                .append("circle")  // Add circle svg
+                .attr("cx", function(d) {
+                    return x(d.Year);  // Circle's X
+                })
+                .attr("cy", function(d) {  // Circle's Y
+                    return y(d.Men);
+                })
+                .attr("r", 3);  // radius
+				
+				
+									scat.on("mouseover", function(d) {
+									
+									svgMaj.append("text")
+									   .attr("id","tooltipMF")
+									   .attr("x", 0)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Year - " + d.Year.getFullYear() + "--" + "Men : Count - " + d.Men + " , ");
+									
+									svgMaj.append("text")
+									   .attr("id","tooltip1MF")
+									   .attr("x", 170)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Women : Count - " + d.Women + " , ");
+									   
+									svgMaj.append("text")
+									   .attr("id","tooltip2MF")
+									   .attr("x", 290)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Total : Count - "  + d.Participants);
+									   
+									   var yr = d.Year
+									   
+									   console.log(yr)
+									   console.log(d.Year)
+									scat.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });   
+									scat1.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									scat2.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									   })
+									   
+			scat.on("mouseout", function() {
+			d3.select("#tooltipMF").remove();
+			d3.select("#tooltip1MF").remove();
+			d3.select("#tooltip2MF").remove();
+			scat.attr("r", 3);
+			scat1.attr("r", 3);
+			scat2.attr("r", 3);
+			})
+			
+			
+			   var scat1 = svgMaj.selectAll("circle1")
+                .data(data)
+                .enter()
+                .append("circle")  // Add circle svg
+                .attr("cx", function(d) {
+                    return x(d.Year);  // Circle's X
+                })
+                .attr("cy", function(d) {  // Circle's Y
+                    return y(d.Women);
+                })
+                .attr("r", 3);  // radius
+				
+				
+									scat1.on("mouseover", function(d) {
+									
+									svgMaj.append("text")
+									   .attr("id","tooltipMF")
+									   .attr("x", 0)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Year - " + d.Year.getFullYear() + "--" + "Men : Count - " + d.Men + " , ");
+									
+									svgMaj.append("text")
+									   .attr("id","tooltip1MF")
+									   .attr("x", 170)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Women : Count - " + d.Women + " , ");
+									   
+									svgMaj.append("text")
+									   .attr("id","tooltip2MF")
+									   .attr("x", 290)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Total : Count - "  + d.Participants);
+									   
+									   var yr = d.Year
+									   
+									   console.log(yr)
+									   console.log(d.Year)
+									scat.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });   
+									scat1.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									scat2.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									   })
+									   
+			scat1.on("mouseout", function() {
+			d3.select("#tooltipMF").remove();
+			d3.select("#tooltip1MF").remove();
+			d3.select("#tooltip2MF").remove();
+			scat.attr("r", 3);
+			scat1.attr("r", 3);
+			scat2.attr("r", 3);
+			})
+			
+			
+					   var scat2 = svgMaj.selectAll("circle2")
+                .data(data)
+                .enter()
+                .append("circle")  // Add circle svg
+                .attr("cx", function(d) {
+                    return x(d.Year);  // Circle's X
+                })
+                .attr("cy", function(d) {  // Circle's Y
+                    return y(d.Participants);
+                })
+                .attr("r", 3);  // radius
+				
+				
+									scat2.on("mouseover", function(d) {
+									
+									svgMaj.append("text")
+									   .attr("id","tooltipMF")
+									   .attr("x", 0)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Year - " + d.Year.getFullYear() + "--" + "Men : Count - " + d.Men + " , ");
+									
+									svgMaj.append("text")
+									   .attr("id","tooltip1MF")
+									   .attr("x", 170)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Women : Count - " + d.Women + " , ");
+									   
+									svgMaj.append("text")
+									   .attr("id","tooltip2MF")
+									   .attr("x", 290)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Total : Count - "  + d.Participants);
+									   
+									   var yr = d.Year
+									   
+									   console.log(yr)
+									   console.log(d.Year)
+									scat.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });   
+									scat1.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									scat2.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									   })
+									   
+			scat2.on("mouseout", function() {
+			d3.select("#tooltipMF").remove();
+			d3.select("#tooltip1MF").remove();
+			d3.select("#tooltip2MF").remove();
+			scat.attr("r", 3);
+			scat1.attr("r", 3);
+			scat2.attr("r", 3);
+			})
+		
+
+    // Add the X Axis
+    svgMaj.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    // Add the Y Axis
+    svgMaj.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.text("Count");;
+		
+		color = ['#e41a1c','orange','#4daf4a'];
+		
+	var legend = svgMaj.selectAll(".legend")
+      .data(["Total", "Men", "Women"])
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(10," + (i+7) * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", 95)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) {
+							if(d == "Total") return color[0];
+							else if(d =="Men") return color[1];
+							else return color[2]; });
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", 90)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;})
+	  
+	  
+	  
+     
+ });
+
+	}
+
+function genderU()
+	{
+				var marginMaj = {top: 20, right: 20, bottom: 70, left: 60},
+			widthMaj = 600 - marginMaj.left - marginMaj.right,
+			heightMaj = 300 - marginMaj.top - marginMaj.bottom;
+
+			var svgMaj = d3.select("#GenderChartU").append("svg").attr("id", "IDMFU")
+						   .attr("width", widthMaj + marginMaj.left + marginMaj.right)
+						   .attr("height", heightMaj + marginMaj.top + marginMaj.bottom)
+					       .append("g")
+						   .attr("transform", "translate(" + marginMaj.left + "," + marginMaj.top + ")");
+						   
+	svgMaj.append("text")
+	   .attr("x", widthMaj/2 - marginMaj.right - 20)
+	   .attr("y", marginMaj.top - 30)
+	   .text("Under Grad Gender Count")
+	   .style("font-weight", "bold");
+	
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 60},
+    width = 600 - margin.left - margin.right,
+    height = 270 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%Y").parse,
+    formatDate = d3.time.format("%Y"),
+    bisectDate = d3.bisector(function(d) { return d.Year; }).left;
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(5);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(5);
+
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.Men); });
+	
+var valueline1 = d3.svg.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.Women); });
+	
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.Participants); });
+    
+
+var lineSvg = svgMaj.append("g"); 
+
+var lineSvg1 = svgMaj.append("g"); 
+
+var lineSvg2 = svgMaj.append("g");
+
+
+// Get the data
+d3.csv("genderdetails.csv", function(error, data) {
+
+var Tempdata = data.filter(function(d, i) { if (d.level == "undergrad") return d;});
+
+data = Tempdata;
+
+    data.forEach(function(d) {
+        d.Year = parseDate(d.Year);
+        d.Men = +d.Men;
+		d.Women = +d.Women;
+		d.Participants = +d.Participants;
+    });
+
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.Year; }));
+    y.domain([0, d3.max(data, function(d) { return d.Participants; })]);
+
+    // Add the valueline path.
+    lineSvg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(data));
+	
+	 lineSvg1.append("path")
+        .attr("class", "line1")
+        .attr("d", valueline1(data));
+	
+	lineSvg2.append("path")
+        .attr("class", "line2")
+        .attr("d", valueline2(data));
+	
+            var scat = svgMaj.selectAll("circle")
+                .data(data)
+                .enter()
+                .append("circle")  // Add circle svg
+                .attr("cx", function(d) {
+                    return x(d.Year);  // Circle's X
+                })
+                .attr("cy", function(d) {  // Circle's Y
+                    return y(d.Men);
+                })
+                .attr("r", 3);  // radius
+				
+				
+									scat.on("mouseover", function(d) {
+									
+									svgMaj.append("text")
+									   .attr("id","tooltipMFU")
+									   .attr("x", 0)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Year - " + d.Year.getFullYear() + "--" + "Men : Count - " + d.Men + " , ");
+									
+									svgMaj.append("text")
+									   .attr("id","tooltip1MFU")
+									   .attr("x", 170)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Women : Count - " + d.Women + " , ");
+									   
+									svgMaj.append("text")
+									   .attr("id","tooltip2MFU")
+									   .attr("x", 290)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Total : Count - "  + d.Participants);
+									   
+									   var yr = d.Year
+									   
+									   console.log(yr)
+									   console.log(d.Year)
+									scat.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });   
+									scat1.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									scat2.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									   })
+									   
+			scat.on("mouseout", function() {
+			d3.select("#tooltipMFU").remove();
+			d3.select("#tooltip1MFU").remove();
+			d3.select("#tooltip2MFU").remove();
+			scat.attr("r", 3);
+			scat1.attr("r", 3);
+			scat2.attr("r", 3);
+			})
+			
+			
+			   var scat1 = svgMaj.selectAll("circle1")
+                .data(data)
+                .enter()
+                .append("circle")  // Add circle svg
+                .attr("cx", function(d) {
+                    return x(d.Year);  // Circle's X
+                })
+                .attr("cy", function(d) {  // Circle's Y
+                    return y(d.Women);
+                })
+                .attr("r", 3);  // radius
+				
+				
+									scat1.on("mouseover", function(d) {
+									
+									svgMaj.append("text")
+									   .attr("id","tooltipMFU")
+									   .attr("x", 0)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Year - " + d.Year.getFullYear() + "--" + "Men : Count - " + d.Men + " , ");
+									
+									svgMaj.append("text")
+									   .attr("id","tooltip1MFU")
+									   .attr("x", 170)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Women : Count - " + d.Women + " , ");
+									   
+									svgMaj.append("text")
+									   .attr("id","tooltip2MFU")
+									   .attr("x", 290)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Total : Count - "  + d.Participants);
+									   
+									   var yr = d.Year
+									   
+									   console.log(yr)
+									   console.log(d.Year)
+									scat.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });   
+									scat1.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									scat2.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									   })
+									   
+			scat1.on("mouseout", function() {
+			d3.select("#tooltipMFU").remove();
+			d3.select("#tooltip1MFU").remove();
+			d3.select("#tooltip2MFU").remove();
+			scat.attr("r", 3);
+			scat1.attr("r", 3);
+			scat2.attr("r", 3);
+			})
+			
+			
+					   var scat2 = svgMaj.selectAll("circle2")
+                .data(data)
+                .enter()
+                .append("circle")  // Add circle svg
+                .attr("cx", function(d) {
+                    return x(d.Year);  // Circle's X
+                })
+                .attr("cy", function(d) {  // Circle's Y
+                    return y(d.Participants);
+                })
+                .attr("r", 3);  // radius
+				
+				
+									scat2.on("mouseover", function(d) {
+									
+									svgMaj.append("text")
+									   .attr("id","tooltipMFU")
+									   .attr("x", 0)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Year - " + d.Year.getFullYear() + "--" + "Men : Count - " + d.Men + " , ");
+									
+									svgMaj.append("text")
+									   .attr("id","tooltip1MFU")
+									   .attr("x", 170)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Women : Count - " + d.Women + " , ");
+									   
+									svgMaj.append("text")
+									   .attr("id","tooltip2MFU")
+									   .attr("x", 290)
+									   .attr("y", heightMaj + marginMaj.bottom)
+									   .attr("font-family", "sans-serif")
+									   .attr("font-size", "11px")
+									   .attr("font-weight", "bold")
+									   .attr("fill", "red")
+									   .text("Total : Count - "  + d.Participants);
+									   
+									   var yr = d.Year
+									   
+									   console.log(yr)
+									   console.log(d.Year)
+									scat.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });   
+									scat1.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									scat2.attr("r", function(d) { if(d.Year == yr) { return 5;} else { return 3; } });
+									   })
+									   
+			scat2.on("mouseout", function() {
+			d3.select("#tooltipMFU").remove();
+			d3.select("#tooltip1MFU").remove();
+			d3.select("#tooltip2MFU").remove();
+			scat.attr("r", 3);
+			scat1.attr("r", 3);
+			scat2.attr("r", 3);
+			})
+		
+
+    // Add the X Axis
+    svgMaj.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    // Add the Y Axis
+    svgMaj.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.text("Count");
+		
+		color = ['#e41a1c','orange','#4daf4a'];
+		
+	var legend = svgMaj.selectAll(".legend")
+      .data(["Total", "Men", "Women"])
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(10," + (i+7) * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) {
+							if(d == "Total") return color[0];
+							else if(d =="Men") return color[1];
+							else return color[2]; });
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d;})
+	  
+	  
+	  
+     
+ });
+
+}
+</script>
+
+</body>
